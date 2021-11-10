@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ip1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Chek">
+    <Key>
+      <PropertyRef Name="ID_чека" />
+    </Key>
+    <Property Name="ID_чека" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_сотрудника" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Chek_Sotrudniki" FromRole="Chek" ToRole="Sotrudniki" />
+    <NavigationProperty Name="Vse_cheki" Relationship="Self.FK_Vse_cheki_Chek" FromRole="Chek" ToRole="Vse_cheki" />
+  </EntityType>
+  <EntityType Name="Inventorizacia">
+    <Key>
+      <PropertyRef Name="ID_инвенторизации" />
+    </Key>
+    <Property Name="ID_инвенторизации" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_сотрудника" Type="Int32" Nullable="false" />
+    <Property Name="Квартал" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Inventorizacia_Sotrudniki" FromRole="Inventorizacia" ToRole="Sotrudniki" />
+    <NavigationProperty Name="Sostav_inventorizacii" Relationship="Self.FK_Sostav_inventorizacii_Inventorizacia" FromRole="Inventorizacia" ToRole="Sostav_inventorizacii" />
+  </EntityType>
+  <EntityType Name="Kategorii_tovarov">
+    <Key>
+      <PropertyRef Name="ID_категории" />
+    </Key>
+    <Property Name="ID_категории" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tovari" Relationship="Self.FK_Tovari_Kategorii_tovarov" FromRole="Kategorii_tovarov" ToRole="Tovari" />
+  </EntityType>
+  <EntityType Name="Otkritie_smeni">
+    <Key>
+      <PropertyRef Name="ID_открытия_смены" />
+    </Key>
+    <Property Name="ID_открытия_смены" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Сумма_открытия" Type="Int32" Nullable="false" />
+    <Property Name="ID_сотрудника" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Otkritie_smeni_Sotrudniki" FromRole="Otkritie_smeni" ToRole="Sotrudniki" />
+    <NavigationProperty Name="Zakritie_smeni" Relationship="Self.FK_Zakritie_smeni_Otkritie_smeni" FromRole="Otkritie_smeni" ToRole="Zakritie_smeni" />
+  </EntityType>
+  <EntityType Name="Postavka">
+    <Key>
+      <PropertyRef Name="ID_поставки" />
+    </Key>
+    <Property Name="ID_поставки" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_поставщика" Type="Int32" Nullable="false" />
+    <Property Name="Номер_поставки" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Postavshik" Relationship="Self.FK_Postavka_Postavshik" FromRole="Postavka" ToRole="Postavshik" />
+    <NavigationProperty Name="Sostav_postavki" Relationship="Self.FK_Sostav_postavki_Postavka" FromRole="Postavka" ToRole="Sostav_postavki" />
+  </EntityType>
+  <EntityType Name="Postavshik">
+    <Key>
+      <PropertyRef Name="ID_поставщика" />
+    </Key>
+    <Property Name="ID_поставщика" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Контактный_номер" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Postavka" Relationship="Self.FK_Postavka_Postavshik" FromRole="Postavshik" ToRole="Postavka" />
+  </EntityType>
+  <EntityType Name="Sotrudniki">
+    <Key>
+      <PropertyRef Name="ID_сотрудника" />
+    </Key>
+    <Property Name="ID_сотрудника" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Телефон" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Chek" Relationship="Self.FK_Chek_Sotrudniki" FromRole="Sotrudniki" ToRole="Chek" />
+    <NavigationProperty Name="Inventorizacia" Relationship="Self.FK_Inventorizacia_Sotrudniki" FromRole="Sotrudniki" ToRole="Inventorizacia" />
+    <NavigationProperty Name="Otkritie_smeni" Relationship="Self.FK_Otkritie_smeni_Sotrudniki" FromRole="Sotrudniki" ToRole="Otkritie_smeni" />
+  </EntityType>
+  <EntityType Name="Tovar_na_spisanie">
+    <Key>
+      <PropertyRef Name="ID_списанки" />
+    </Key>
+    <Property Name="ID_списанки" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Артикул" Type="Int32" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <Property Name="Комментарий" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tovari" Relationship="Self.FK_Tovar_na_spisanie_Tovari" FromRole="Tovar_na_spisanie" ToRole="Tovari" />
+  </EntityType>
+  <EntityType Name="Tovari">
+    <Key>
+      <PropertyRef Name="Артикул" />
+    </Key>
+    <Property Name="Артикул" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование_товара" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <Property Name="ID_поставки" Type="Int32" Nullable="false" />
+    <Property Name="ID_категории" Type="Int32" Nullable="false" />
+    <Property Name="Цена" Type="Int32" Nullable="false" />
+    <Property Name="Дата_окончания_сг" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Kategorii_tovarov" Relationship="Self.FK_Tovari_Kategorii_tovarov" FromRole="Tovari" ToRole="Kategorii_tovarov" />
+    <NavigationProperty Name="Tovar_na_spisanie" Relationship="Self.FK_Tovar_na_spisanie_Tovari" FromRole="Tovari" ToRole="Tovar_na_spisanie" />
+    <NavigationProperty Name="Sostav_inventorizacii" Relationship="Self.FK_Sostav_inventorizacii_Tovari" FromRole="Tovari" ToRole="Sostav_inventorizacii" />
+    <NavigationProperty Name="Sostav_postavki" Relationship="Self.FK_Sostav_postavki_Tovari" FromRole="Tovari" ToRole="Sostav_postavki" />
+    <NavigationProperty Name="Vozvrat" Relationship="Self.FK_Vozvrat_Tovari" FromRole="Tovari" ToRole="Vozvrat" />
+    <NavigationProperty Name="Vse_cheki" Relationship="Self.FK_Vse_cheki_Tovari" FromRole="Tovari" ToRole="Vse_cheki" />
+  </EntityType>
+  <EntityType Name="Vozvrat">
+    <Key>
+      <PropertyRef Name="ID_возврата" />
+    </Key>
+    <Property Name="ID_возврата" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Артикул" Type="Int32" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tovari" Relationship="Self.FK_Vozvrat_Tovari" FromRole="Vozvrat" ToRole="Tovari" />
+  </EntityType>
+  <EntityType Name="Zakritie_smeni">
+    <Key>
+      <PropertyRef Name="ID_закрытия_смены" />
+    </Key>
+    <Property Name="ID_закрытия_смены" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Сумма_закрытия" Type="Int32" Nullable="false" />
+    <Property Name="ID_открытия_смены" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Otkritie_smeni" Relationship="Self.FK_Zakritie_smeni_Otkritie_smeni" FromRole="Zakritie_smeni" ToRole="Otkritie_smeni" />
+  </EntityType>
+  <EntityType Name="Sostav_inventorizacii">
+    <Key>
+      <PropertyRef Name="ID_инвенторизации" />
+      <PropertyRef Name="Артикул" />
+      <PropertyRef Name="Количество" />
+    </Key>
+    <Property Name="ID_инвенторизации" Type="Int32" Nullable="false" />
+    <Property Name="Артикул" Type="Int32" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Inventorizacia" Relationship="Self.FK_Sostav_inventorizacii_Inventorizacia" FromRole="Sostav_inventorizacii" ToRole="Inventorizacia" />
+    <NavigationProperty Name="Tovari" Relationship="Self.FK_Sostav_inventorizacii_Tovari" FromRole="Sostav_inventorizacii" ToRole="Tovari" />
+  </EntityType>
+  <EntityType Name="Sostav_postavki">
+    <Key>
+      <PropertyRef Name="ID_поставки" />
+      <PropertyRef Name="Артикул" />
+      <PropertyRef Name="Количество" />
+      <PropertyRef Name="Цена_за_ед" />
+    </Key>
+    <Property Name="ID_поставки" Type="Int32" Nullable="false" />
+    <Property Name="Артикул" Type="Int32" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <Property Name="Цена_за_ед" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Postavka" Relationship="Self.FK_Sostav_postavki_Postavka" FromRole="Sostav_postavki" ToRole="Postavka" />
+    <NavigationProperty Name="Tovari" Relationship="Self.FK_Sostav_postavki_Tovari" FromRole="Sostav_postavki" ToRole="Tovari" />
+  </EntityType>
+  <EntityType Name="Vse_cheki">
+    <Key>
+      <PropertyRef Name="ID_чека" />
+      <PropertyRef Name="Артикул" />
+      <PropertyRef Name="Количество" />
+    </Key>
+    <Property Name="ID_чека" Type="Int32" Nullable="false" />
+    <Property Name="Артикул" Type="Int32" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Chek" Relationship="Self.FK_Vse_cheki_Chek" FromRole="Vse_cheki" ToRole="Chek" />
+    <NavigationProperty Name="Tovari" Relationship="Self.FK_Vse_cheki_Tovari" FromRole="Vse_cheki" ToRole="Tovari" />
+  </EntityType>
+  <Association Name="FK_Chek_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="1" />
+    <End Role="Chek" Type="Self.Chek" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="ID_сотрудника" />
+      </Principal>
+      <Dependent Role="Chek">
+        <PropertyRef Name="ID_сотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vse_cheki_Chek">
+    <End Role="Chek" Type="Self.Chek" Multiplicity="1" />
+    <End Role="Vse_cheki" Type="Self.Vse_cheki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chek">
+        <PropertyRef Name="ID_чека" />
+      </Principal>
+      <Dependent Role="Vse_cheki">
+        <PropertyRef Name="ID_чека" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventorizacia_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="1" />
+    <End Role="Inventorizacia" Type="Self.Inventorizacia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="ID_сотрудника" />
+      </Principal>
+      <Dependent Role="Inventorizacia">
+        <PropertyRef Name="ID_сотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_inventorizacii_Inventorizacia">
+    <End Role="Inventorizacia" Type="Self.Inventorizacia" Multiplicity="1" />
+    <End Role="Sostav_inventorizacii" Type="Self.Sostav_inventorizacii" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inventorizacia">
+        <PropertyRef Name="ID_инвенторизации" />
+      </Principal>
+      <Dependent Role="Sostav_inventorizacii">
+        <PropertyRef Name="ID_инвенторизации" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tovari_Kategorii_tovarov">
+    <End Role="Kategorii_tovarov" Type="Self.Kategorii_tovarov" Multiplicity="1" />
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorii_tovarov">
+        <PropertyRef Name="ID_категории" />
+      </Principal>
+      <Dependent Role="Tovari">
+        <PropertyRef Name="ID_категории" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Otkritie_smeni_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="1" />
+    <End Role="Otkritie_smeni" Type="Self.Otkritie_smeni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="ID_сотрудника" />
+      </Principal>
+      <Dependent Role="Otkritie_smeni">
+        <PropertyRef Name="ID_сотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakritie_smeni_Otkritie_smeni">
+    <End Role="Otkritie_smeni" Type="Self.Otkritie_smeni" Multiplicity="1" />
+    <End Role="Zakritie_smeni" Type="Self.Zakritie_smeni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Otkritie_smeni">
+        <PropertyRef Name="ID_открытия_смены" />
+      </Principal>
+      <Dependent Role="Zakritie_smeni">
+        <PropertyRef Name="ID_открытия_смены" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Postavka_Postavshik">
+    <End Role="Postavshik" Type="Self.Postavshik" Multiplicity="1" />
+    <End Role="Postavka" Type="Self.Postavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postavshik">
+        <PropertyRef Name="ID_поставщика" />
+      </Principal>
+      <Dependent Role="Postavka">
+        <PropertyRef Name="ID_поставщика" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_postavki_Postavka">
+    <End Role="Postavka" Type="Self.Postavka" Multiplicity="1" />
+    <End Role="Sostav_postavki" Type="Self.Sostav_postavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postavka">
+        <PropertyRef Name="ID_поставки" />
+      </Principal>
+      <Dependent Role="Sostav_postavki">
+        <PropertyRef Name="ID_поставки" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tovar_na_spisanie_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Tovar_na_spisanie" Type="Self.Tovar_na_spisanie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Tovar_na_spisanie">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_inventorizacii_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Sostav_inventorizacii" Type="Self.Sostav_inventorizacii" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Sostav_inventorizacii">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_postavki_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Sostav_postavki" Type="Self.Sostav_postavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Sostav_postavki">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vozvrat_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Vozvrat" Type="Self.Vozvrat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Vozvrat">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vse_cheki_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Vse_cheki" Type="Self.Vse_cheki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Vse_cheki">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Chek" EntityType="Self.Chek" />
+    <EntitySet Name="Inventorizacia" EntityType="Self.Inventorizacia" />
+    <EntitySet Name="Kategorii_tovarov" EntityType="Self.Kategorii_tovarov" />
+    <EntitySet Name="Otkritie_smeni" EntityType="Self.Otkritie_smeni" />
+    <EntitySet Name="Postavka" EntityType="Self.Postavka" />
+    <EntitySet Name="Postavshik" EntityType="Self.Postavshik" />
+    <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" />
+    <EntitySet Name="Tovar_na_spisanie" EntityType="Self.Tovar_na_spisanie" />
+    <EntitySet Name="Tovari" EntityType="Self.Tovari" />
+    <EntitySet Name="Vozvrat" EntityType="Self.Vozvrat" />
+    <EntitySet Name="Zakritie_smeni" EntityType="Self.Zakritie_smeni" />
+    <EntitySet Name="Sostav_inventorizacii" EntityType="Self.Sostav_inventorizacii" />
+    <EntitySet Name="Sostav_postavki" EntityType="Self.Sostav_postavki" />
+    <EntitySet Name="Vse_cheki" EntityType="Self.Vse_cheki" />
+    <AssociationSet Name="FK_Chek_Sotrudniki" Association="Self.FK_Chek_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Chek" EntitySet="Chek" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vse_cheki_Chek" Association="Self.FK_Vse_cheki_Chek">
+      <End Role="Chek" EntitySet="Chek" />
+      <End Role="Vse_cheki" EntitySet="Vse_cheki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventorizacia_Sotrudniki" Association="Self.FK_Inventorizacia_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Inventorizacia" EntitySet="Inventorizacia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_inventorizacii_Inventorizacia" Association="Self.FK_Sostav_inventorizacii_Inventorizacia">
+      <End Role="Inventorizacia" EntitySet="Inventorizacia" />
+      <End Role="Sostav_inventorizacii" EntitySet="Sostav_inventorizacii" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tovari_Kategorii_tovarov" Association="Self.FK_Tovari_Kategorii_tovarov">
+      <End Role="Kategorii_tovarov" EntitySet="Kategorii_tovarov" />
+      <End Role="Tovari" EntitySet="Tovari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Otkritie_smeni_Sotrudniki" Association="Self.FK_Otkritie_smeni_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Otkritie_smeni" EntitySet="Otkritie_smeni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakritie_smeni_Otkritie_smeni" Association="Self.FK_Zakritie_smeni_Otkritie_smeni">
+      <End Role="Otkritie_smeni" EntitySet="Otkritie_smeni" />
+      <End Role="Zakritie_smeni" EntitySet="Zakritie_smeni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Postavka_Postavshik" Association="Self.FK_Postavka_Postavshik">
+      <End Role="Postavshik" EntitySet="Postavshik" />
+      <End Role="Postavka" EntitySet="Postavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_postavki_Postavka" Association="Self.FK_Sostav_postavki_Postavka">
+      <End Role="Postavka" EntitySet="Postavka" />
+      <End Role="Sostav_postavki" EntitySet="Sostav_postavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tovar_na_spisanie_Tovari" Association="Self.FK_Tovar_na_spisanie_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Tovar_na_spisanie" EntitySet="Tovar_na_spisanie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_inventorizacii_Tovari" Association="Self.FK_Sostav_inventorizacii_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Sostav_inventorizacii" EntitySet="Sostav_inventorizacii" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_postavki_Tovari" Association="Self.FK_Sostav_postavki_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Sostav_postavki" EntitySet="Sostav_postavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vozvrat_Tovari" Association="Self.FK_Vozvrat_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Vozvrat" EntitySet="Vozvrat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vse_cheki_Tovari" Association="Self.FK_Vse_cheki_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Vse_cheki" EntitySet="Vse_cheki" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

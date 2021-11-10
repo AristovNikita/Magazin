@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ip1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Chek">
+    <Key>
+      <PropertyRef Name="ID_чека" />
+    </Key>
+    <Property Name="ID_чека" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Дата" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_сотрудника" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inventorizacia">
+    <Key>
+      <PropertyRef Name="ID_инвенторизации" />
+    </Key>
+    <Property Name="ID_инвенторизации" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Дата" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_сотрудника" Type="int" Nullable="false" />
+    <Property Name="Квартал" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kategorii_tovarov">
+    <Key>
+      <PropertyRef Name="ID_категории" />
+    </Key>
+    <Property Name="ID_категории" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Otkritie_smeni">
+    <Key>
+      <PropertyRef Name="ID_открытия_смены" />
+    </Key>
+    <Property Name="ID_открытия_смены" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Дата" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Сумма_открытия" Type="int" Nullable="false" />
+    <Property Name="ID_сотрудника" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Postavka">
+    <Key>
+      <PropertyRef Name="ID_поставки" />
+    </Key>
+    <Property Name="ID_поставки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Дата" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_поставщика" Type="int" Nullable="false" />
+    <Property Name="Номер_поставки" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Postavshik">
+    <Key>
+      <PropertyRef Name="ID_поставщика" />
+    </Key>
+    <Property Name="ID_поставщика" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Контактный_номер" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "18ip1.dbo.Sostav_inventorizacii" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Sostav_inventorizacii">
+    <Key>
+      <PropertyRef Name="ID_инвенторизации" />
+      <PropertyRef Name="Артикул" />
+      <PropertyRef Name="Количество" />
+    </Key>
+    <Property Name="ID_инвенторизации" Type="int" Nullable="false" />
+    <Property Name="Артикул" Type="int" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "18ip1.dbo.Sostav_postavki" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Sostav_postavki">
+    <Key>
+      <PropertyRef Name="ID_поставки" />
+      <PropertyRef Name="Артикул" />
+      <PropertyRef Name="Количество" />
+      <PropertyRef Name="Цена_за_ед" />
+    </Key>
+    <Property Name="ID_поставки" Type="int" Nullable="false" />
+    <Property Name="Артикул" Type="int" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+    <Property Name="Цена_за_ед" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sotrudniki">
+    <Key>
+      <PropertyRef Name="ID_сотрудника" />
+    </Key>
+    <Property Name="ID_сотрудника" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Пароль" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Телефон" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tovar_na_spisanie">
+    <Key>
+      <PropertyRef Name="ID_списанки" />
+    </Key>
+    <Property Name="ID_списанки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Артикул" Type="int" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+    <Property Name="Комментарий" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Дата" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tovari">
+    <Key>
+      <PropertyRef Name="Артикул" />
+    </Key>
+    <Property Name="Артикул" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование_товара" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+    <Property Name="ID_поставки" Type="int" Nullable="false" />
+    <Property Name="ID_категории" Type="int" Nullable="false" />
+    <Property Name="Цена" Type="int" Nullable="false" />
+    <Property Name="Дата_окончания_сг" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vozvrat">
+    <Key>
+      <PropertyRef Name="ID_возврата" />
+    </Key>
+    <Property Name="ID_возврата" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Дата" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Артикул" Type="int" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "18ip1.dbo.Vse_cheki" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Vse_cheki">
+    <Key>
+      <PropertyRef Name="ID_чека" />
+      <PropertyRef Name="Артикул" />
+      <PropertyRef Name="Количество" />
+    </Key>
+    <Property Name="ID_чека" Type="int" Nullable="false" />
+    <Property Name="Артикул" Type="int" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zakritie_smeni">
+    <Key>
+      <PropertyRef Name="ID_закрытия_смены" />
+    </Key>
+    <Property Name="ID_закрытия_смены" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Сумма_закрытия" Type="int" Nullable="false" />
+    <Property Name="ID_открытия_смены" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Chek_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="1" />
+    <End Role="Chek" Type="Self.Chek" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="ID_сотрудника" />
+      </Principal>
+      <Dependent Role="Chek">
+        <PropertyRef Name="ID_сотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventorizacia_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="1" />
+    <End Role="Inventorizacia" Type="Self.Inventorizacia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="ID_сотрудника" />
+      </Principal>
+      <Dependent Role="Inventorizacia">
+        <PropertyRef Name="ID_сотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Otkritie_smeni_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="1" />
+    <End Role="Otkritie_smeni" Type="Self.Otkritie_smeni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="ID_сотрудника" />
+      </Principal>
+      <Dependent Role="Otkritie_smeni">
+        <PropertyRef Name="ID_сотрудника" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Postavka_Postavshik">
+    <End Role="Postavshik" Type="Self.Postavshik" Multiplicity="1" />
+    <End Role="Postavka" Type="Self.Postavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postavshik">
+        <PropertyRef Name="ID_поставщика" />
+      </Principal>
+      <Dependent Role="Postavka">
+        <PropertyRef Name="ID_поставщика" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_inventorizacii_Inventorizacia">
+    <End Role="Inventorizacia" Type="Self.Inventorizacia" Multiplicity="1" />
+    <End Role="Sostav_inventorizacii" Type="Self.Sostav_inventorizacii" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inventorizacia">
+        <PropertyRef Name="ID_инвенторизации" />
+      </Principal>
+      <Dependent Role="Sostav_inventorizacii">
+        <PropertyRef Name="ID_инвенторизации" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_inventorizacii_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Sostav_inventorizacii" Type="Self.Sostav_inventorizacii" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Sostav_inventorizacii">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_postavki_Postavka">
+    <End Role="Postavka" Type="Self.Postavka" Multiplicity="1" />
+    <End Role="Sostav_postavki" Type="Self.Sostav_postavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Postavka">
+        <PropertyRef Name="ID_поставки" />
+      </Principal>
+      <Dependent Role="Sostav_postavki">
+        <PropertyRef Name="ID_поставки" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sostav_postavki_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Sostav_postavki" Type="Self.Sostav_postavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Sostav_postavki">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tovar_na_spisanie_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Tovar_na_spisanie" Type="Self.Tovar_na_spisanie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Tovar_na_spisanie">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tovari_Kategorii_tovarov">
+    <End Role="Kategorii_tovarov" Type="Self.Kategorii_tovarov" Multiplicity="1" />
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorii_tovarov">
+        <PropertyRef Name="ID_категории" />
+      </Principal>
+      <Dependent Role="Tovari">
+        <PropertyRef Name="ID_категории" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vozvrat_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Vozvrat" Type="Self.Vozvrat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Vozvrat">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vse_cheki_Chek">
+    <End Role="Chek" Type="Self.Chek" Multiplicity="1" />
+    <End Role="Vse_cheki" Type="Self.Vse_cheki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chek">
+        <PropertyRef Name="ID_чека" />
+      </Principal>
+      <Dependent Role="Vse_cheki">
+        <PropertyRef Name="ID_чека" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vse_cheki_Tovari">
+    <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+    <End Role="Vse_cheki" Type="Self.Vse_cheki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovari">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Vse_cheki">
+        <PropertyRef Name="Артикул" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakritie_smeni_Otkritie_smeni">
+    <End Role="Otkritie_smeni" Type="Self.Otkritie_smeni" Multiplicity="1" />
+    <End Role="Zakritie_smeni" Type="Self.Zakritie_smeni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Otkritie_smeni">
+        <PropertyRef Name="ID_открытия_смены" />
+      </Principal>
+      <Dependent Role="Zakritie_smeni">
+        <PropertyRef Name="ID_открытия_смены" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ip1ModelContainer">
+    <EntitySet Name="Chek" EntityType="Self.Chek" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inventorizacia" EntityType="Self.Inventorizacia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategorii_tovarov" EntityType="Self.Kategorii_tovarov" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Otkritie_smeni" EntityType="Self.Otkritie_smeni" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Postavka" EntityType="Self.Postavka" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Postavshik" EntityType="Self.Postavshik" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tovar_na_spisanie" EntityType="Self.Tovar_na_spisanie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tovari" EntityType="Self.Tovari" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vozvrat" EntityType="Self.Vozvrat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Zakritie_smeni" EntityType="Self.Zakritie_smeni" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sostav_inventorizacii" EntityType="Self.Sostav_inventorizacii" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Sostav_inventorizacii].[ID_инвенторизации] AS [ID_инвенторизации], 
+    [Sostav_inventorizacii].[Артикул] AS [Артикул], 
+    [Sostav_inventorizacii].[Количество] AS [Количество]
+    FROM [dbo].[Sostav_inventorizacii] AS [Sostav_inventorizacii]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Sostav_postavki" EntityType="Self.Sostav_postavki" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Sostav_postavki].[ID_поставки] AS [ID_поставки], 
+    [Sostav_postavki].[Артикул] AS [Артикул], 
+    [Sostav_postavki].[Количество] AS [Количество], 
+    [Sostav_postavki].[Цена_за_ед] AS [Цена_за_ед]
+    FROM [dbo].[Sostav_postavki] AS [Sostav_postavki]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vse_cheki" EntityType="Self.Vse_cheki" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vse_cheki].[ID_чека] AS [ID_чека], 
+    [Vse_cheki].[Артикул] AS [Артикул], 
+    [Vse_cheki].[Количество] AS [Количество]
+    FROM [dbo].[Vse_cheki] AS [Vse_cheki]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Chek_Sotrudniki" Association="Self.FK_Chek_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Chek" EntitySet="Chek" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventorizacia_Sotrudniki" Association="Self.FK_Inventorizacia_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Inventorizacia" EntitySet="Inventorizacia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Otkritie_smeni_Sotrudniki" Association="Self.FK_Otkritie_smeni_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Otkritie_smeni" EntitySet="Otkritie_smeni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Postavka_Postavshik" Association="Self.FK_Postavka_Postavshik">
+      <End Role="Postavshik" EntitySet="Postavshik" />
+      <End Role="Postavka" EntitySet="Postavka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_inventorizacii_Inventorizacia" Association="Self.FK_Sostav_inventorizacii_Inventorizacia">
+      <End Role="Inventorizacia" EntitySet="Inventorizacia" />
+      <End Role="Sostav_inventorizacii" EntitySet="Sostav_inventorizacii" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_inventorizacii_Tovari" Association="Self.FK_Sostav_inventorizacii_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Sostav_inventorizacii" EntitySet="Sostav_inventorizacii" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_postavki_Postavka" Association="Self.FK_Sostav_postavki_Postavka">
+      <End Role="Postavka" EntitySet="Postavka" />
+      <End Role="Sostav_postavki" EntitySet="Sostav_postavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sostav_postavki_Tovari" Association="Self.FK_Sostav_postavki_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Sostav_postavki" EntitySet="Sostav_postavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tovar_na_spisanie_Tovari" Association="Self.FK_Tovar_na_spisanie_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Tovar_na_spisanie" EntitySet="Tovar_na_spisanie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tovari_Kategorii_tovarov" Association="Self.FK_Tovari_Kategorii_tovarov">
+      <End Role="Kategorii_tovarov" EntitySet="Kategorii_tovarov" />
+      <End Role="Tovari" EntitySet="Tovari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vozvrat_Tovari" Association="Self.FK_Vozvrat_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Vozvrat" EntitySet="Vozvrat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vse_cheki_Chek" Association="Self.FK_Vse_cheki_Chek">
+      <End Role="Chek" EntitySet="Chek" />
+      <End Role="Vse_cheki" EntitySet="Vse_cheki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vse_cheki_Tovari" Association="Self.FK_Vse_cheki_Tovari">
+      <End Role="Tovari" EntitySet="Tovari" />
+      <End Role="Vse_cheki" EntitySet="Vse_cheki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakritie_smeni_Otkritie_smeni" Association="Self.FK_Zakritie_smeni_Otkritie_smeni">
+      <End Role="Otkritie_smeni" EntitySet="Otkritie_smeni" />
+      <End Role="Zakritie_smeni" EntitySet="Zakritie_smeni" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
